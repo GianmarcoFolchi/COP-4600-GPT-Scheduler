@@ -98,7 +98,7 @@ def round_robin_scheduler(processes, q):
 """
 2
 Gianmarco Folchi
-In the same chat as 1 Gianmarco:
+In the same chat as 1:
 Can you write the logic to parse the input from the arg file?
 """
 def parse_input(input_text):
@@ -123,3 +123,32 @@ def parse_input(input_text):
         elif parts[0] == 'end':
             break
     return algorithm, runfor, processes
+
+"""
+3 
+Gianmarco Folchi 
+In the same chat as 1 and 2:
+Can you create a main function that parses a single command-line parameter for the input filename. i.e.:
+scheduler-gpt.py inputFile.in
+
+and calls the parse_input function while creating objects of the Process class?
+"""
+import sys
+def main():
+    if len(sys.argv) != 2:
+        print("Usage: python scheduler-gpt.py inputFile.in")
+        return
+
+    input_filename = sys.argv[1]
+    try:
+        with open(input_filename, 'r') as file:
+            input_text = file.read()
+        algorithm, runfor, processes = parse_input(input_text)
+        print(f"Algorithm: {algorithm}, Run For: {runfor}, Processes: {[p.name for p in processes]}")
+        # Here you would call the scheduling function based on the `algorithm` variable
+        # For example: if algorithm == 'sjf': preemptive_sjf_scheduler(processes)
+    except FileNotFoundError:
+        print(f"File {input_filename} not found.")
+
+if __name__ == "__main__":
+    main()
