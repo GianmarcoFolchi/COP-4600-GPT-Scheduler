@@ -1,4 +1,5 @@
 """"
+1
 Gianmarco Folchi
 You are tasked with implementing three process scheduling algorithms: FIFO (First In, First Out), Pre-emptive SJF (Shortest Job First), and Round Robin in Python.
 The implementation should include the following components:
@@ -93,3 +94,32 @@ def round_robin_scheduler(processes, q):
         # Rotate through processes in ready queue with time slice q
         # Update time and process information
         pass  # This will be filled with the actual logic
+
+"""
+2
+Gianmarco Folchi
+In the same chat as 1 Gianmarco:
+Can you write the logic to parse the input from the arg file?
+"""
+def parse_input(input_text):
+    lines = input_text.strip().split('\n')
+    processes = []
+    runfor = 0
+    algorithm = ''
+    for line in lines:
+        parts = line.split()
+        if parts[0] == 'processcount':
+            # Not specifically needed as we're directly collecting processes
+            pass
+        elif parts[0] == 'runfor':
+            runfor = int(parts[1])
+        elif parts[0] == 'use':
+            algorithm = parts[1]
+        elif parts[0] == 'process':
+            name = parts[2]
+            arrival = int(parts[4])
+            burst = int(parts[6])
+            processes.append(Process(name, arrival, burst))
+        elif parts[0] == 'end':
+            break
+    return algorithm, runfor, processes
